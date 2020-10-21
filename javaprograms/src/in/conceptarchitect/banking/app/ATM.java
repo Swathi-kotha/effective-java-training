@@ -34,11 +34,10 @@ public class ATM {
 				System.out.println("Account Created Successfully");
 				break;
 			case 2:
-				
-				System.out.println("Enter the depositing money");
-				amount = sc.nextDouble();
 				System.out.println("Enter password");
 				password = sc.next();
+				System.out.println("Enter the depositing money");
+				amount = sc.nextDouble();
 				bankAccount.depositMoney(password, amount);
 				break;
 			case 3:
@@ -50,11 +49,10 @@ public class ATM {
 				bankAccount.withdrawMoney(password, amount);
 				break;
 			case 4:
-				
-				System.out.println("Enter Interest Rate");
-				rate = sc.nextDouble();
 				System.out.println("Enter password");
 				password = sc.next();
+				System.out.println("Enter Interest Rate");
+				rate = sc.nextDouble();				
 				bankAccount.creditInterestRate(password, rate);
 				break;
 			case 5:
