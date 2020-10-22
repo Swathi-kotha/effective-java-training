@@ -4,13 +4,23 @@ import in.conceptarchitect.utils.Input;
 
 public class BankAccount {
 	
+	
 	int accountNumber;
 	String name;
 	String password;
 	double balance;
-	static int accountNumberId=0;
-	static double interestRate = 10; //initalizing static member if it is a constant value
 	
+	
+	
+	public  BankAccount( String name, String password, double amount) {
+		
+		//this.accountNumber= ++accountCount; //will be supplied by the bank
+		this.name=name;  
+		this.password=salt(password); 		
+		
+		this.balance=amount; 
+		   
+	}
 	
 	
 
@@ -41,30 +51,11 @@ public class BankAccount {
 		
 	}
 	
-	
-	
-
-	//not desirable and it is a security breach
-	//	public String getPassword() {
-	//		return password;
-	//	}
-	//
-	//	public void setPassword(String password) {
-	//		this.password = password;
-	//	}
-	
-	
 	public int getAccountNumber() {
 		return accountNumber;
 	}
-	public int setAccountNumber(int accountNumber)
-	{
-		return this.accountNumber=++accountNumberId;
-		
-
-	}
 	
-	//you can't change your account number
+	
 	
 	public String getName() {
 		return name;
@@ -78,40 +69,18 @@ public class BankAccount {
 		return balance;
 	}
 	
-	//no set balance. to set balance use deposit or withdraw
-	
-	//get set interest rate
-	public static double getInterestRate() {
-		return interestRate;
-	}
-
-	public static void setInterestRate(double interestRate) {
-		BankAccount.interestRate = interestRate;
-	}
-
 	
 	
-	
-	public  BankAccount( String name, String password, double amount) {
-		
-		this.name=name;  
-		this.password=salt(password); //we are saving a hashed/salted password and not the original one		
-		
-		this.balance=amount; 
-		this.accountNumber=setAccountNumber(accountNumber);
-		//interestRate=rate;   //static memebers are not initalized in constructor   
-	}
 	
 	public void show() {
-		System.out.println("Account Number\t"+accountNumber); 
+		System.out.println("Account Number\t"+this.accountNumber); 
 		System.out.println("Name\t"+name); 
 		//System.out.println("Password\t"+password); 
 		System.out.println("Balance\t"+balance); 
-		System.out.println("Interest Rate\t"+interestRate); 
+	 
 	}
 	
 	public boolean deposit(double amount) {
-		//TODO: write the deposit logic
 		
 		if(amount>0) {
 			balance+=amount;
@@ -146,9 +115,13 @@ public class BankAccount {
 		
 	}
 
-	public void creditInterest() {
+	public void creditInterest(double interestRate) {
 		// TODO Auto-generated method stub
 		balance+=(balance*interestRate)/1200; //one month interest at a time.
-	}
+		System.out.println(accountNumber+"\t"+balance+"\t"+name);
 
+	}
+	
+	
+	
 }
