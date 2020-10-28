@@ -2,6 +2,7 @@ package in.conceptarchitect.banking.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Before;
@@ -21,8 +22,8 @@ public class BankTests {
 
 	@Before
 	public void init() {
-		savingsaccount=new SavingsAccount("swa", "swa", 1000);
-		
+		savingsaccount = new SavingsAccount("swa", "swa", 1000);
+
 		first = bank.openAccount("savings", "Swa", "Swa", 1000);
 		second = bank.openAccount("savings", "Sri", "Sri", 500);
 
@@ -31,20 +32,15 @@ public class BankTests {
 	@Test
 	public void transfer_shouldFailIfFromAccountDoesntExist() {
 		boolean result = bank.transfer(1, 500, "Swa", 15);
-
-		if (result) {
-			fail(" account does not exists");
-		}
+		assertFalse(result);
 
 	}
 
 	@Test
 	public void transfer_shouldFailIfInvalidToAccount() {
 		boolean result = bank.transfer(9, 500, "Swa", 1);
+		assertFalse(result);
 
-		if (result) {
-			fail(" account does not exists");
-		}
 	}
 
 	@Test
@@ -58,18 +54,14 @@ public class BankTests {
 	@Test
 	public void transfer_shouldFailForInsufficientBalance() {
 		boolean result = bank.transfer(first, 500000, "Swa", second);
-		if (result) {
-			fail("Insufficent Balance");
-		}
+		assertFalse(result);
+
 	}
 
 	@Test
 	public void transfer_shouldSucceedInHappyPath() {
 		boolean result = bank.transfer(first, 100, "Swa", second);
-		if (result) {
-			assertEquals(true, result);
-			;
-		}
+		assertTrue(result);
 	}
 
 	@Test
@@ -79,30 +71,28 @@ public class BankTests {
 		double updatedBalance = 1000 + 1000 * rate / 1200;
 
 		// act
-savingsaccount.creditInterest(rate);
+		savingsaccount.creditInterest(rate);
 
 		// assert
 		assertEquals(updatedBalance, savingsaccount.getBalance(), 0.2);
 
 	}
+
 	@Test
-    public void closeAccount_failsForInvalidAccountNumber() {
-        boolean result = false;
-        BankAccount account=bank.getAccount(5,"swa");
-        if(account != null)
-            result = bank.close(5, "suni");
-        if(result)
-            fail("Invalid Account Number");
-    }
-	
+	public void closeAccount_failsForInvalidAccountNumber() {
+		boolean result = false;
+		BankAccount account = bank.getAccount(5, "swa");
+		if (account != null)
+			result = bank.close(5, "suni");
+		assertFalse(result);
+
+	}
 
 	@Test
 	public void closeAccount_cantWithdrawFromClosedAccount() {
 		boolean result = bank.withdraw(4, 1000, "Swa");
-		if (account == null)
-			if (result) {
-				fail(" You cant withdraw from a closed account");
-			}
+		assertFalse(result);
+
 	}
 
 	@Test

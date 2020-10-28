@@ -66,10 +66,10 @@ public class OverdraftAccountTests {
 
 	@Test
 	public void withdraw_canPushMyBalanceToNegative() {
-		account.withdraw(balanceWithOdLimit, password);
-		if(account.getBalance()<0) {
-			assertFalse(true);
-		}
+		boolean result=account.withdraw(balanceWithOdLimit, password);
+		
+			assertFalse(result);
+		
 	}
 	
 	@Test
